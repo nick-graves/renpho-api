@@ -1,7 +1,7 @@
 # renpho-api
 
 [![PyPI](https://img.shields.io/pypi/v/renpho-api)](https://pypi.org/project/renpho-api/)
-[![CI](https://github.com/danvaneijck/renpho-api/actions/workflows/ci.yml/badge.svg)](https://github.com/danvaneijck/renpho-api/actions/workflows/ci.yml)
+[![CI](https://github.com/nick-graves/renpho-api/actions/workflows/ci.yml/badge.svg)](https://github.com/nick-graves/renpho-api/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/pypi/pyversions/renpho-api)](https://pypi.org/project/renpho-api/)
 
 Unofficial Python client for the Renpho Health API. Pull body composition measurements from Renpho smart scales and measuring tapes programmatically.
@@ -44,6 +44,8 @@ RENPHO_PASSWORD=your_plain_text_password
 ```bash
 renpho
 ```
+
+(Running from source instead of an install? Use `python run.py` in place of `renpho` throughout.)
 
 This will log in, discover your scales, fetch all measurements, print the 5 most
 recent, and save everything to `renpho_data/` as JSON and CSV. If the account has
@@ -318,6 +320,8 @@ paired `*Unit`, where `0` = cm). Unmeasured fields are returned as `0`.
 renpho-api/
 ├── pyproject.toml        # Package config & dependencies
 ├── README.md
+├── run.py                # Entry point for running from a source checkout (no install)
+├── .env.example          # Template for your .env (copy to .env and fill in credentials)
 ├── renpho/
 │   ├── __init__.py       # Public API exports
 │   ├── client.py         # RenphoClient class
