@@ -62,6 +62,12 @@ recent, and save everything to `renpho_data/` as JSON and CSV. If the account ha
 a smart tape measure it also writes `girth.json` / `girth.csv`; accounts without
 one simply report no girth records.
 
+For each scale, the CLI always tries the body-composition endpoint first, even
+when the device-info `count` is reported as `0` — that count is unreliable for
+impedance scales and would otherwise cause real measurements to be skipped. It
+only falls back to the plain count-based fetch if the body-composition endpoint
+comes back empty.
+
 ### Environment variables
 
 | Variable | Required | Description |
