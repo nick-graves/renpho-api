@@ -25,15 +25,19 @@ pip install "renpho-api[dotenv]"
 ```bash
 git clone https://github.com/nick-graves/renpho-api.git
 cd renpho-api
+python -m venv venv
+venv/bin/pip install -e ".[dotenv]"
+cp .env.example .env  # then fill in RENPHO_EMAIL / RENPHO_PASSWORD
+venv/bin/python run.py
+```
+
+If you have [uv](https://docs.astral.sh/uv/) installed, you can use it instead:
+
+```bash
 uv sync
 cp .env.example .env  # then fill in RENPHO_EMAIL / RENPHO_PASSWORD
 uv run python run.py
 ```
-
-`uv sync` creates a `.venv/` with all dependencies installed; `uv run` picks that up
-automatically, so there's no separate activate step. If you'd rather manage the
-virtualenv yourself: `python -m venv venv && venv/bin/pip install -e ".[dotenv]"`,
-then run with `venv/bin/python run.py`.
 
 ## CLI Usage
 
@@ -50,8 +54,8 @@ RENPHO_PASSWORD=your_plain_text_password
 renpho
 ```
 
-(Running from source instead of an install? Use `uv run python run.py` — or
-`venv/bin/python run.py` if you made your own venv — in place of `renpho` throughout.)
+(Running from source instead of an install? Use `venv/bin/python run.py` — or
+`uv run python run.py` if using uv — in place of `renpho` throughout.)
 
 This will log in, discover your scales, fetch all measurements, print the 5 most
 recent, and save everything to `renpho_data/` as JSON and CSV. If the account has
