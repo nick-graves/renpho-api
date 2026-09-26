@@ -8,6 +8,20 @@ Unofficial Python client for the Renpho Health API. Pull body composition measur
 
 Based on reverse-engineering from [RenphoGarminSync-CLI](https://github.com/forkerer/RenphoGarminSync-CLI).
 
+## About this fork
+
+This is a fork of [danvaneijck/renpho-api](https://github.com/danvaneijck/renpho-api) that fixes a bug in the original:
+the CLI skipped fetching measurements for a scale whenever the device-info `count`
+came back as `0`, but that count is unreliable for body-composition (impedance)
+scales — it's often `0` even when real measurement data exists, so the original
+CLI would silently report no data. This fork always tries the body-composition
+endpoint first regardless of the reported count, and only falls back to the
+count-based fetch if that comes up empty. See the "CLI Usage" section below for
+details.
+
+It also adds a `run.py` entry point and `.env.example` for running straight from
+a source checkout without installing the package.
+
 ## Installation
 
 ```bash
