@@ -63,21 +63,27 @@ def main(argv: list[str] | None = None) -> None:
         print(f"  [{i}] table={table}, records={count}, users={uids}")
 
     # Step 3: Fetch measurements
+    # The device-info `count` is unreliable for body composition (impedance)
+    # scales -- it is often reported as 0 even when data exists -- so this
+    # always attempts the body composition endpoint first, same as
+    # RenphoClient.get_all_measurements(), instead of skipping on count == 0.
     all_measurements: list[dict] = []
     for scale in scales:
         table_name = scale.get("tableName")
         count = scale.get("count", 0)
         user_ids = scale.get("userIds", [])
 
-        if not table_name or count == 0:
+        if not table_name:
             continue
 
         uid = client.user_id
         if user_ids and uid not in user_ids:
             uid = user_ids[0]
 
-        print(f"Fetching measurements (table: {table_name}, total: {count})...")
-        measurements = client.get_measurements(table_name, uid, count)
+        print(f"Fetching measurements (table: {table_name}, reported total: {count})...")
+        measurements = client.get_body_composition_measurements(table_name, uid)
+        if not measurements and count > 0:
+            measurements = client.get_measurements(table_name, uid, count)
         all_measurements.extend(measurements)
 
     if all_measurements:

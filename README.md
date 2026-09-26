@@ -20,6 +20,16 @@ For `.env` file support (recommended for CLI usage):
 pip install "renpho-api[dotenv]"
 ```
 
+### Running from source (no install)
+
+```bash
+git clone https://github.com/nick-graves/renpho-api.git
+cd renpho-api
+uv sync   # or: pip install -e ".[dotenv]"
+cp .env.example .env  # then fill in RENPHO_EMAIL / RENPHO_PASSWORD
+python run.py
+```
+
 ## CLI Usage
 
 1. Create a `.env` file (or export the variables):
